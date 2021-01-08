@@ -1,3 +1,4 @@
+using BlogSystemAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,9 @@ namespace BlogSystemAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AppSettings appSettings = new AppSettings();
+            Configuration.GetSection("AppSettings").Bind(appSettings);
+            services.AddSingleton<AppSettings>(appSettings);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,6 +48,11 @@ namespace BlogSystemAPI
             }
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseAuthorization();
 

@@ -21,6 +21,7 @@ namespace BlogSystemAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:4005");
                 });
     }
 }
