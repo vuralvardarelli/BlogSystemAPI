@@ -24,12 +24,12 @@ namespace BlogSystemAPI.Controllers
             _postRepository = postRepository;
         }
 
-        [HttpPost("InsertPost")]
-        public async Task<Result> InsertPost([FromBody] PostInput input)
+        [HttpPost("Insert")]
+        public async Task<Result> Insert([FromBody] PostInput input)
         {
             Result rslt = new Result();
 
-            string userId = this.User.Identities.Select(x=>x.Name).FirstOrDefault();
+            var userId = this.User.Identities.Select(x => x.Name).FirstOrDefault();
 
             try
             {
@@ -43,7 +43,31 @@ namespace BlogSystemAPI.Controllers
 
                 rslt.Data = await _postRepository.Insert(post);
                 rslt.Status = 1;
-                rslt.Message = "Success";             
+                rslt.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                rslt.Status = 0;
+                rslt.Message = ex.Message;
+            }
+
+            return rslt;
+        }
+
+        [HttpPut("Update")]
+        public async Task<Result> Update([FromBody] Post input)
+        {
+            Result rslt = new Result();
+
+            var userId = this.User.Identities.Select(x => x.Name).FirstOrDefault();
+
+            try
+            {
+                input.UserId = string.IsNullOrEmpty(userId) ? input.UserId : Convert.ToInt32(userId);
+
+                await _postRepository.Update(input);
+                rslt.Status = 1;
+                rslt.Message = "Success";
             }
             catch (Exception ex)
             {
