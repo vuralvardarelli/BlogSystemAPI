@@ -1,7 +1,9 @@
+using BlogSystemAPI.Data;
 using BlogSystemAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +31,11 @@ namespace BlogSystemAPI
             AppSettings appSettings = new AppSettings();
             Configuration.GetSection("AppSettings").Bind(appSettings);
             services.AddSingleton<AppSettings>(appSettings);
+
+            services.AddDbContext<BlogDBContext>(options => options.UseSqlServer(Configuration["AppSettings:ConnectionString"]));
+
+            services.AddMvc().AddNewtonsoftJson();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
