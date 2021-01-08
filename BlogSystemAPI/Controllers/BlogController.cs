@@ -5,6 +5,7 @@ using BlogSystemAPI.Repository.Interfaces;
 using BlogSystemAPI.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,11 +57,13 @@ namespace BlogSystemAPI.Controllers
                 rslt.Data = await _postRepository.Insert(post);
                 rslt.Status = 1;
                 rslt.Message = "Success";
+                Log.Information("Post inserted by user id : " + userId);
             }
             catch (Exception ex)
             {
                 rslt.Status = 0;
                 rslt.Message = ex.Message;
+                Log.Error(ex, "Insert");
             }
 
             return rslt;
@@ -85,11 +88,13 @@ namespace BlogSystemAPI.Controllers
                 await _postRepository.Update(input);
                 rslt.Status = 1;
                 rslt.Message = "Success";
+                Log.Information("Post updated by user id : " + userId);
             }
             catch (Exception ex)
             {
                 rslt.Status = 0;
                 rslt.Message = ex.Message;
+                Log.Error(ex, "Update");
             }
 
             return rslt;
@@ -105,16 +110,21 @@ namespace BlogSystemAPI.Controllers
         {
             Result rslt = new Result();
 
+            var userId = this.User.Identities.Select(x => x.Name).FirstOrDefault();
+
             try
             {
                 await _postRepository.Delete(Convert.ToInt32(postId));
                 rslt.Status = 1;
                 rslt.Message = "Success";
+
+                Log.Information("Post deleted by user id : " + userId);
             }
             catch (Exception ex)
             {
                 rslt.Status = 0;
                 rslt.Message = ex.Message;
+                Log.Error(ex, "Delete");
             }
 
             return rslt;
@@ -140,6 +150,7 @@ namespace BlogSystemAPI.Controllers
             {
                 rslt.Status = 0;
                 rslt.Message = ex.Message;
+                Log.Error(ex, "Get");
             }
 
             return rslt;
@@ -164,6 +175,7 @@ namespace BlogSystemAPI.Controllers
             {
                 rslt.Status = 0;
                 rslt.Message = ex.Message;
+                Log.Error(ex, "GetAll");
             }
 
             return rslt;
@@ -175,7 +187,7 @@ namespace BlogSystemAPI.Controllers
         /// <param name="filters">Object to filter anything</param>
         /// <returns>Json object with filtered list</returns>
         [HttpPost("FilteredList")]
-        public async Task<Result> FilteredList([FromBody]FilterInput filters)
+        public async Task<Result> FilteredList([FromBody] FilterInput filters)
         {
             Result rslt = new Result();
 
@@ -189,6 +201,7 @@ namespace BlogSystemAPI.Controllers
             {
                 rslt.Status = 0;
                 rslt.Message = ex.Message;
+                Log.Error(ex, "FilteredList");
             }
 
             return rslt;

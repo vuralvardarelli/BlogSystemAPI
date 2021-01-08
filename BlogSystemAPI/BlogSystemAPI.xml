@@ -74,5 +74,316 @@
             <param name="filters">Object to filter anything</param>
             <returns>Json object with filtered list</returns>
         </member>
+        <member name="T:BlogSystemAPI.Data.BlogDBContext">
+            <summary>
+            DB Context EFCore
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Data.BlogDBContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{BlogSystemAPI.Data.BlogDBContext})">
+            <summary>
+            BlogDBContext Constructor
+            </summary>
+            <param name="dbOptions"></param>
+        </member>
+        <member name="P:BlogSystemAPI.Data.BlogDBContext.Posts">
+            <summary>
+            Posts rows
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Data.BlogDBContext.Users">
+            <summary>
+            Users rows
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Models.AppSettings">
+            <summary>
+            Application Settings from appsettings.json
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.AppSettings.ConnectionString">
+            <summary>
+            DB Connection string
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.AppSettings.Migrate">
+            <summary>
+            Migration enabled or disabled for app start.
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.AppSettings.AuthSecret">
+            <summary>
+            Authentication secret to create token
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.AppSettings.PasswordHashSecret">
+            <summary>
+            Password Secret to encrypt/decrypt passwords
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Models.Database.Post">
+            <summary>
+            Post Object/Table
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Models.Database.User">
+            <summary>
+            User Object/Table
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Models.Inputs.FilterInput">
+            <summary>
+            FilterInput
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Inputs.FilterInput.UserId">
+            <summary>
+            UserId filter
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Inputs.FilterInput.ContentContains">
+            <summary>
+            ContentContains filter
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Inputs.FilterInput.OrderByCreateDateDesc">
+            <summary>
+            OrderByCreateDateDesc filter
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Inputs.FilterInput.StartDate">
+            <summary>
+            StartDate filter
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Inputs.FilterInput.EndDate">
+            <summary>
+            EndDate filter
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Models.Inputs.PostInput">
+            <summary>
+            PostInput
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Inputs.PostInput.Content">
+            <summary>
+            Content to insert
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Models.Result">
+            <summary>
+            Result object to Return for APIS
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Result.Status">
+            <summary>
+            Status 0 or 1
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Result.Message">
+            <summary>
+            Success or Error Message
+            </summary>
+        </member>
+        <member name="P:BlogSystemAPI.Models.Result.Data">
+            <summary>
+            Data object if any data needed
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Program.Main(System.String[])">
+            <summary>
+            Main. Also creates DB if appsettings.Migrate is true.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:BlogSystemAPI.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates IHostBuilder
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BlogSystemAPI.Repository.Interfaces.IPostRepository">
+            <summary>
+            Post Repository Interface
+            </summary>
+        </member>
+        <member name="T:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1">
+            <summary>
+            Base Repository Interface For Crud Ops
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1.Insert(`0)">
+            <summary>
+            Insert
+            </summary>
+            <param name="entity">Post entity without id</param>
+            <returns>inserted post</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1.Update(`0)">
+            <summary>
+            Update
+            </summary>
+            <param name="entity">Updating the post</param>
+            <returns>void</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1.Delete(System.Int32)">
+            <summary>
+            Delete
+            </summary>
+            <param name="id">Deleting post with this id</param>
+            <returns>void</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1.GetAll">
+            <summary>
+            Get All Posts
+            </summary>
+            <returns>All posts as a list</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1.GetById(System.Int32)">
+            <summary>
+            Get By Id
+            </summary>
+            <param name="id">Gets post by this id</param>
+            <returns>Post object</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.Interfaces.IRepositoryBase`1.GetFilteredList(BlogSystemAPI.Models.Inputs.FilterInput)">
+            <summary>
+            Getting Posts By Filters
+            </summary>
+            <param name="filters">filters to include</param>
+            <returns>List of filtered posts</returns>
+        </member>
+        <member name="T:BlogSystemAPI.Repository.PostRepository">
+            <summary>
+            Post Repository CRUD ops
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.#ctor(BlogSystemAPI.Data.BlogDBContext)">
+            <summary>
+            PostRepository constructor
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.Delete(System.Int32)">
+            <summary>
+            Delete
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.GetAll">
+            <summary>
+            GetAll
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.GetById(System.Int32)">
+            <summary>
+            GetById
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.GetFilteredList(BlogSystemAPI.Models.Inputs.FilterInput)">
+            <summary>
+            GetFilteredList
+            </summary>
+            <param name="filters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.Insert(BlogSystemAPI.Models.Database.Post)">
+            <summary>
+            Insert
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Repository.PostRepository.Update(BlogSystemAPI.Models.Database.Post)">
+            <summary>
+            Update
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BlogSystemAPI.Services.UserService.IUserService">
+            <summary>
+            IUserService interface for auth ops
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Services.UserService.IUserService.Authenticate(System.String,System.String)">
+            <summary>
+            Authenticate method to get user with Token
+            </summary>
+            <param name="kullaniciAdi"></param>
+            <param name="sifre"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BlogSystemAPI.Services.UserService.UserService">
+            <summary>
+            UserService
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Services.UserService.UserService.#ctor(BlogSystemAPI.Data.BlogDBContext,BlogSystemAPI.Models.AppSettings)">
+            <summary>
+            UserService constructor
+            </summary>
+            <param name="context"></param>
+            <param name="settings"></param>
+        </member>
+        <member name="M:BlogSystemAPI.Services.UserService.UserService.Authenticate(System.String,System.String)">
+            <summary>
+            Authenticate method for getting user with Token
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:BlogSystemAPI.Startup.Configuration">
+            <summary>
+            Iconfiguration
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            DI Services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:BlogSystemAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            API Starting Settings
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:BlogSystemAPI.Utils.Hashing">
+            <summary>
+            StaticHashing Class for Password Security
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Utils.Hashing.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypting Password as ExtensionMethod
+            </summary>
+            <param name="toEncrypt"></param>
+            <param name="secret"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlogSystemAPI.Utils.Hashing.Decrypt(System.String,System.String)">
+            <summary>
+            Decrypting Password as ExtensionMethod
+            </summary>
+            <param name="toDecrypt"></param>
+            <param name="secret"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
