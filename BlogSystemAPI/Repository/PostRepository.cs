@@ -49,7 +49,7 @@ namespace BlogSystemAPI.Repository
             await _dbContext.Posts.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            return await _dbContext.Posts.Where(x => x.Content == entity.Content && x.UserId == entity.UserId).OrderByDescending(y=>y.Id).FirstOrDefaultAsync();
+            return await _dbContext.Posts.Where(x => x.Content == entity.Content && x.UserId == entity.UserId).OrderByDescending(y => y.Id).FirstOrDefaultAsync();
         }
 
         public async Task Update(Post entity)
@@ -60,14 +60,16 @@ namespace BlogSystemAPI.Repository
                 return;
 
             if (post.Content != entity.Content)
-            {
                 post.Content = entity.Content;
-                post.UpdateDate = DateTime.Now;
 
-                _dbContext.Posts.Update(post);
-                await _dbContext.SaveChangesAsync();
-            }
-                
+            if (post.UserId != entity.UserId)
+                post.UserId = entity.UserId;
+
+            post.UpdateDate = DateTime.Now;
+
+            _dbContext.Posts.Update(post);
+            await _dbContext.SaveChangesAsync();
+
         }
     }
 }
