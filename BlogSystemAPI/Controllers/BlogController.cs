@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlogSystemAPI.Controllers
 {
+    /// <summary>
+    /// Blog CRUD operations
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
@@ -19,11 +22,20 @@ namespace BlogSystemAPI.Controllers
     {
         private IPostRepository _postRepository;
 
+        /// <summary>
+        /// Blog controller constructor
+        /// </summary>
+        /// <param name="postRepository"></param>
         public BlogController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
         }
 
+        /// <summary>
+        /// Adding a new post 
+        /// </summary>
+        /// <param name="input">Including only CONTENT will be enough. Other params will be automated by the system</param>
+        /// <returns>Json object including last added Post</returns>
         [HttpPost("Insert")]
         public async Task<Result> Insert([FromBody] PostInput input)
         {
@@ -54,6 +66,11 @@ namespace BlogSystemAPI.Controllers
             return rslt;
         }
 
+        /// <summary>
+        /// Updating the existing post
+        /// </summary>
+        /// <param name="input">Can update UserId and UpdateDate automated, also lets u change the CONTENT</param>
+        /// <returns>Json object with error or success</returns>
         [HttpPut("Update")]
         public async Task<Result> Update([FromBody] Post input)
         {
@@ -78,6 +95,11 @@ namespace BlogSystemAPI.Controllers
             return rslt;
         }
 
+        /// <summary>
+        /// Deleting existing post by Id
+        /// </summary>
+        /// <param name="postId">Post Id</param>
+        /// <returns>Json object with error or success</returns>
         [HttpDelete("Delete")]
         public async Task<Result> Delete(string postId)
         {
@@ -98,6 +120,11 @@ namespace BlogSystemAPI.Controllers
             return rslt;
         }
 
+        /// <summary>
+        /// Gets existing post by its own Id
+        /// </summary>
+        /// <param name="postId">Post Id</param>
+        /// <returns>Json object with a desired post</returns>
         [HttpGet("Get")]
         public async Task<Result> Get(string postId)
         {
@@ -118,6 +145,10 @@ namespace BlogSystemAPI.Controllers
             return rslt;
         }
 
+        /// <summary>
+        /// Gets all of the posts inserted
+        /// </summary>
+        /// <returns>Json object with all of the posts</returns>
         [HttpGet("GetAll")]
         public async Task<Result> GetAll()
         {
@@ -138,6 +169,11 @@ namespace BlogSystemAPI.Controllers
             return rslt;
         }
 
+        /// <summary>
+        /// Gets filtered posts list
+        /// </summary>
+        /// <param name="filters">Object to filter anything</param>
+        /// <returns>Json object with filtered list</returns>
         [HttpPost("FilteredList")]
         public async Task<Result> FilteredList([FromBody]FilterInput filters)
         {

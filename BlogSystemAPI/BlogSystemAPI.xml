@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlogSystemAPI</name>
+    </assembly>
+    <members>
+        <member name="T:BlogSystemAPI.Controllers.AuthController">
+            <summary>
+            Auth operation controller
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.AuthController.#ctor(BlogSystemAPI.Services.UserService.IUserService)">
+            <summary>
+            Auth controller constructor
+            </summary>
+            <param name="userService"></param>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.AuthController.Authenticate(BlogSystemAPI.Models.Database.User)">
+            <summary>
+            Username 'kaizen' , Password '1234' will do the job for now
+            </summary>
+            <param name="userParam">Filling username and password is enough</param>
+            <returns>User with a token to use for other endpoints</returns>
+        </member>
+        <member name="T:BlogSystemAPI.Controllers.BlogController">
+            <summary>
+            Blog CRUD operations
+            </summary>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.#ctor(BlogSystemAPI.Repository.Interfaces.IPostRepository)">
+            <summary>
+            Blog controller constructor
+            </summary>
+            <param name="postRepository"></param>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.Insert(BlogSystemAPI.Models.Inputs.PostInput)">
+            <summary>
+            Adding a new post 
+            </summary>
+            <param name="input">Including only CONTENT will be enough. Other params will be automated by the system</param>
+            <returns>Json object including last added Post</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.Update(BlogSystemAPI.Models.Database.Post)">
+            <summary>
+            Updating the existing post
+            </summary>
+            <param name="input">Can update UserId and UpdateDate automated, also lets u change the CONTENT</param>
+            <returns>Json object with error or success</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.Delete(System.String)">
+            <summary>
+            Deleting existing post by Id
+            </summary>
+            <param name="postId">Post Id</param>
+            <returns>Json object with error or success</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.Get(System.String)">
+            <summary>
+            Gets existing post by its own Id
+            </summary>
+            <param name="postId">Post Id</param>
+            <returns>Json object with a desired post</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.GetAll">
+            <summary>
+            Gets all of the posts inserted
+            </summary>
+            <returns>Json object with all of the posts</returns>
+        </member>
+        <member name="M:BlogSystemAPI.Controllers.BlogController.FilteredList(BlogSystemAPI.Models.Inputs.FilterInput)">
+            <summary>
+            Gets filtered posts list
+            </summary>
+            <param name="filters">Object to filter anything</param>
+            <returns>Json object with filtered list</returns>
+        </member>
+    </members>
+</doc>

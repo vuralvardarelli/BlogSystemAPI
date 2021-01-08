@@ -101,6 +101,8 @@ namespace BlogSystemAPI
                         new List<string>()
                       }
                     });
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "BlogSystemAPI.xml");
+                c.IncludeXmlComments(filePath);
             });
         }
 
