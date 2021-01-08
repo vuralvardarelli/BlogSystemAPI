@@ -137,5 +137,25 @@ namespace BlogSystemAPI.Controllers
 
             return rslt;
         }
+
+        [HttpPost("FilteredList")]
+        public async Task<Result> FilteredList([FromBody]FilterInput filters)
+        {
+            Result rslt = new Result();
+
+            try
+            {
+                rslt.Data = await _postRepository.GetFilteredList(filters);
+                rslt.Status = 1;
+                rslt.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                rslt.Status = 0;
+                rslt.Message = ex.Message;
+            }
+
+            return rslt;
+        }
     }
 }

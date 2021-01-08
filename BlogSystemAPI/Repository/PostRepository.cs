@@ -1,5 +1,6 @@
 ﻿using BlogSystemAPI.Data;
 using BlogSystemAPI.Models.Database;
+using BlogSystemAPI.Models.Inputs;
 using BlogSystemAPI.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -39,9 +40,29 @@ namespace BlogSystemAPI.Repository
             return await _dbContext.Posts.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<Post> GetFilteredList()
+        public async Task<List<Post>> GetFilteredList(FilterInput filters)
         {
-            throw new NotImplementedException();
+            var posts = await (from p in _dbContext.Posts
+                               where 1 == 1
+                               && (filters.StartDate.HasValue ? filters.StartDate <= p.CreateDate : true)
+                               && (filters.EndDate.HasValue ? filters.EndDate >= p.CreateDate : true)
+                               && (!string.IsNullOrEmpty(filters.ContentContains) ? p.Content.Contains(filters.ContentContains) : true)
+                               && (filters.UserId.HasValue ? filters.UserId == p.UserId : true)
+                               select new Post
+                               {
+                                   Content = p.Content,
+                                   CreateDate = p.CreateDate,
+                                   Id = p.Id,
+                                   UpdateDate = p.UpdateDate,
+                                   UserId = p.UserId
+                               }).ToListAsync();
+
+            if (filters.OrderByCreateDateDesc)
+            {
+                posts = posts.OrderByDescending(p => p.CreateDate).ToList();
+            }
+
+            return posts;
         }
 
         public async Task<Post> Insert(Post entity)

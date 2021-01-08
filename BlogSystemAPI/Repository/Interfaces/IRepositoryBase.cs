@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlogSystemAPI.Models.Inputs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,6 @@ namespace BlogSystemAPI.Repository.Interfaces
         Task Delete(int id);
         Task<List<T>> GetAll();
         Task<T> GetById(int id);
-        Task<T> GetFilteredList();
+        Task<List<T>> GetFilteredList(FilterInput filters);
     }
 }
