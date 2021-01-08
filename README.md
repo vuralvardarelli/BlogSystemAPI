@@ -4,7 +4,7 @@
 
 1. Please go on to "appsettings.json" file and change your connection string credentials. You do not need to change Database name, it will create it after first run.
 2. After first running application, if you see MSSQL has the tables and Database, please go to "appsettings.json" file and change "Migrate" to false.
-  - Somehow if Code-First approach does not work for your system, Database Script "databaseScript.sql" file will help you to create all necessary sql.
+  -Somehow if Code-First approach does not work for your system, Database Script "databaseScript.sql" file(in solution next to appsettings.json file) will help you to create all necessary sql.
 3. First run will automaticly create a user with Username: "kaizen", Password: "1234". Password is stored hashed in db.
 4. After these steps you can anytime start/stop the application without changing Database.
 5. When you run the project again you will see Swagger API Documentation.
