@@ -22,7 +22,7 @@ namespace BlogSystemAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         public IActionResult Authenticate([FromBody] User userParam)
         {
             var user = _userService.Authenticate(userParam.Username, userParam.Password);

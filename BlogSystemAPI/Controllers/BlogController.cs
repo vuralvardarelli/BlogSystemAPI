@@ -77,5 +77,25 @@ namespace BlogSystemAPI.Controllers
 
             return rslt;
         }
+
+        [HttpDelete("Delete")]
+        public async Task<Result> Delete(string postId)
+        {
+            Result rslt = new Result();
+
+            try
+            {
+                await _postRepository.Delete(Convert.ToInt32(postId));
+                rslt.Status = 1;
+                rslt.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                rslt.Status = 0;
+                rslt.Message = ex.Message;
+            }
+
+            return rslt;
+        }
     }
 }
