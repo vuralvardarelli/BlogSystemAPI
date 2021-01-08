@@ -1,6 +1,6 @@
 # BlogSystemAPI
 
-## .NET 5 Project
+## .NET 5 RESTful Web API Project
 
 1. Please go on to "appsettings.json" file and change your connection string credentials. You do not need to change Database name, it will create it after first run.
 2. After first running application, if you see MSSQL has the tables and Database, please go to "appsettings.json" file and change "Migrate" to false.
