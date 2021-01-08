@@ -117,5 +117,25 @@ namespace BlogSystemAPI.Controllers
 
             return rslt;
         }
+
+        [HttpGet("GetAll")]
+        public async Task<Result> GetAll()
+        {
+            Result rslt = new Result();
+
+            try
+            {
+                rslt.Data = await _postRepository.GetAll();
+                rslt.Status = 1;
+                rslt.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                rslt.Status = 0;
+                rslt.Message = ex.Message;
+            }
+
+            return rslt;
+        }
     }
 }
