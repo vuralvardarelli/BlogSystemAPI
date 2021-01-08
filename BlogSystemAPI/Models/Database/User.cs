@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlogSystemAPI.Models.Database
 {
+    /// <summary>
+    /// User Object/Table
+    /// </summary>
     [Table("BLOG_USER")]
     public class User
     {

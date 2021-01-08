@@ -10,15 +10,27 @@ using System.Threading.Tasks;
 
 namespace BlogSystemAPI.Repository
 {
+    /// <summary>
+    /// Post Repository CRUD ops
+    /// </summary>
     public class PostRepository : IPostRepository
     {
         private BlogDBContext _dbContext;
 
+        /// <summary>
+        /// PostRepository constructor
+        /// </summary>
+        /// <param name="dbContext"></param>
         public PostRepository(BlogDBContext dbContext)
         {
             _dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task Delete(int id)
         {
             Post post = await _dbContext.Posts.Where(x => x.Id == id).FirstOrDefaultAsync();
@@ -30,16 +42,30 @@ namespace BlogSystemAPI.Repository
             }
         }
 
+        /// <summary>
+        /// GetAll
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Post>> GetAll()
         {
             return await _dbContext.Posts.ToListAsync();
         }
 
+        /// <summary>
+        /// GetById
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Post> GetById(int id)
         {
             return await _dbContext.Posts.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// GetFilteredList
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
         public async Task<List<Post>> GetFilteredList(FilterInput filters)
         {
             var posts = await (from p in _dbContext.Posts
@@ -65,6 +91,11 @@ namespace BlogSystemAPI.Repository
             return posts;
         }
 
+        /// <summary>
+        /// Insert
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<Post> Insert(Post entity)
         {
             await _dbContext.Posts.AddAsync(entity);
@@ -73,6 +104,11 @@ namespace BlogSystemAPI.Repository
             return await _dbContext.Posts.Where(x => x.Content == entity.Content && x.UserId == entity.UserId).OrderByDescending(y => y.Id).FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task Update(Post entity)
         {
             Post post = await _dbContext.Posts.Where(x => x.Id == entity.Id).FirstOrDefaultAsync();

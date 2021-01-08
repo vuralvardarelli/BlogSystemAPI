@@ -16,6 +16,10 @@ namespace BlogSystemAPI
 {
     public class Program
     {
+        /// <summary>
+        /// Main. Also creates DB if appsettings.Migrate is true.
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -59,6 +63,11 @@ namespace BlogSystemAPI
             }
         }
 
+        /// <summary>
+        /// Creates IHostBuilder
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

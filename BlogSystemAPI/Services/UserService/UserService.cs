@@ -13,17 +13,31 @@ using System.Threading.Tasks;
 
 namespace BlogSystemAPI.Services.UserService
 {
+    /// <summary>
+    /// UserService
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly BlogDBContext _context;
         private readonly AppSettings _settings;
 
+        /// <summary>
+        /// UserService constructor
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="settings"></param>
         public UserService(BlogDBContext context, AppSettings settings)
         {
             _context = context;
             _settings = settings;
         }
 
+        /// <summary>
+        /// Authenticate method for getting user with Token
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public User Authenticate(string username, string password)
         {
             var user = _context.Users.SingleOrDefault(x => x.Username == username && x.Password == Hashing.Encrypt(password,_settings.PasswordHashSecret));

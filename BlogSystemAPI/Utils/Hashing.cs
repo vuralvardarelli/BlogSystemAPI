@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace BlogSystemAPI.Utils
 {
+    /// <summary>
+    /// StaticHashing Class for Password Security
+    /// </summary>
     public static class Hashing
     {
+        /// <summary>
+        /// Encrypting Password as ExtensionMethod
+        /// </summary>
+        /// <param name="toEncrypt"></param>
+        /// <param name="secret"></param>
+        /// <returns></returns>
         public static string Encrypt(this string toEncrypt, string secret)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(toEncrypt);
@@ -32,6 +41,12 @@ namespace BlogSystemAPI.Utils
             return encrypted;
         }
 
+        /// <summary>
+        /// Decrypting Password as ExtensionMethod
+        /// </summary>
+        /// <param name="toDecrypt"></param>
+        /// <param name="secret"></param>
+        /// <returns></returns>
         public static string Decrypt(this string toDecrypt, string secret)
         {
             string decrypted = "";
