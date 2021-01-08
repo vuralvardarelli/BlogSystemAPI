@@ -21,6 +21,9 @@ namespace BlogSystemAPI.Models.Database
         [Column("CREATE_DATE")]
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
+        [Column("UPDATE_DATE")]
+        public DateTime UpdateDate { get; set; } = DateTime.Now;
+
         [Required]
         [Column("CONTENT")]
         public string Content { get; set; }

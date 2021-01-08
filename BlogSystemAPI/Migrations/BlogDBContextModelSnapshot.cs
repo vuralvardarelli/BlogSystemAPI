@@ -36,6 +36,10 @@ namespace BlogSystemAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CREATE_DATE");
 
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UPDATE_DATE");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("USER_ID");

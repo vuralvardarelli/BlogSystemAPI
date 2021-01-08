@@ -1,5 +1,7 @@
 using BlogSystemAPI.Data;
 using BlogSystemAPI.Models;
+using BlogSystemAPI.Repository;
+using BlogSystemAPI.Repository.Interfaces;
 using BlogSystemAPI.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +39,7 @@ namespace BlogSystemAPI
             services.AddSingleton<AppSettings>(appSettings);
 
             services.AddDbContext<BlogDBContext>(options => options.UseSqlServer(Configuration["AppSettings:ConnectionString"]));
+            services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddCors();
             services.AddMvc().AddNewtonsoftJson();

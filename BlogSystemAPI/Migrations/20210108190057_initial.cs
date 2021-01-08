@@ -15,6 +15,7 @@ namespace BlogSystemAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     USER_ID = table.Column<int>(type: "int", nullable: false),
                     CREATE_DATE = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UPDATE_DATE = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CONTENT = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

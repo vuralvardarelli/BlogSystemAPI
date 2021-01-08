@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogSystemAPI.Migrations
 {
     [DbContext(typeof(BlogDBContext))]
-    [Migration("20210108180734_initial")]
+    [Migration("20210108190057_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,10 @@ namespace BlogSystemAPI.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CREATE_DATE");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UPDATE_DATE");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int")
