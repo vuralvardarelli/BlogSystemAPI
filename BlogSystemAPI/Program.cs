@@ -44,7 +44,7 @@ namespace BlogSystemAPI
                             Name = "Vural",
                             Surname = "Vardarelli",
                             Username = "kaizen",
-                            Password = Hashing.Encrypt("1234",settings.HashSecret)
+                            Password = Hashing.Encrypt("1234",settings.PasswordHashSecret)
                         });
 
                         appDBContext.SaveChanges();
@@ -64,7 +64,6 @@ namespace BlogSystemAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://localhost:4005");
                 });
     }
 }

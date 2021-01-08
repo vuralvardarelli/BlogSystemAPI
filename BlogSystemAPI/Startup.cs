@@ -1,5 +1,7 @@
 using BlogSystemAPI.Data;
 using BlogSystemAPI.Models;
+using BlogSystemAPI.Services.UserService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BlogSystemAPI
@@ -34,8 +38,30 @@ namespace BlogSystemAPI
 
             services.AddDbContext<BlogDBContext>(options => options.UseSqlServer(Configuration["AppSettings:ConnectionString"]));
 
+            services.AddCors();
             services.AddMvc().AddNewtonsoftJson();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            var key = Encoding.ASCII.GetBytes(appSettings.AuthSecret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -60,6 +86,8 @@ namespace BlogSystemAPI
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

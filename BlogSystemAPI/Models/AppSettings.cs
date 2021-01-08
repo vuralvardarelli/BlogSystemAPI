@@ -10,6 +10,6 @@ namespace BlogSystemAPI.Models
         public string ConnectionString { get; set; }
         public bool Migrate { get; set; }
         public string AuthSecret { get; set; }
-        public string HashSecret { get; set; }
+        public string PasswordHashSecret { get; set; }
     }
 }
