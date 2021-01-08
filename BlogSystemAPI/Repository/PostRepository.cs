@@ -49,7 +49,7 @@ namespace BlogSystemAPI.Repository
             await _dbContext.Posts.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            return await _dbContext.Posts.Where(x => x.Content == entity.Content && x.UserId == entity.UserId).LastOrDefaultAsync();
+            return await _dbContext.Posts.Where(x => x.Content == entity.Content && x.UserId == entity.UserId).OrderByDescending(y=>y.Id).FirstOrDefaultAsync();
         }
 
         public async Task Update(Post entity)
