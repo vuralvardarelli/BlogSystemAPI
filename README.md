@@ -12,6 +12,3 @@
 7. At the upper right corner of swagger ui, you will see Authorize button with a lock icon. Click on it. Then type "Bearer" and hit a space, then paste the token value and click Authorize button.
 8. Now you have authenticated for all other endpoints.
 9. Enjoy!
-
-
-**Not: Yaptıklarıma ek olarak daha uzun bir zaman olsaydı , Log'lama işlemlerini geliştirir(Elasticsearch'ü implemente etmek gibi) , Filtreleme ve CRUD operasyonları için CQRS Design Pattern üzerinden gitmeye çalışırdım
